@@ -23,23 +23,10 @@ mon_obj = Table(
     'mon_obj', metadata,
     Column('id', Integer, primary_key=True),
     Column('name', String),
-    Column('obj_type', Integer, ForeignKey("obj_type.id"))
+    Column('obj_type_id', Integer, ForeignKey("obj_type.id"))
 )
 
-metric = Table(
-    'metric', metadata,
-    Column('id', Integer, primary_key=True),
-    Column('name', String),
-    Column('obj_type', Integer, ForeignKey("obj_type.id"))
-)
 
-metric_value = Table(
-    'metric_value', metadata,
-    Column('id', Integer, primary_key=True),
-    Column('metric_id', Integer, ForeignKey("metric.id")),
-    Column('object_id', Integer, ForeignKey("mon_obj.id")),
-    Column('value', Float, nullable=False),
-)
 
 
 engine = create_engine(db_uri, echo=True)
@@ -58,8 +45,17 @@ print insert_stmt
 conn.execute(insert_stmt, data)
 
 
+#inserting related object - boring at this point - need to know related object_type id
+
+insert_stmt2 = mon_obj.insert()
+data2 = []
+for j in xrange(4):
+    for i in xrange(4):
+        data2.append({'name':"obj%s" % j, 'obj_type_id': i})
+conn.execute(insert_stmt2, data2)
+
 #select
-select_stmt   = select([object_type.c.id, object_type.c.name]).where(or_(
+select_stmt = select([object_type.c.id, object_type.c.name]).where(or_(
     object_type.c.name.like("%1"),
     object_type.c.name.like("%4")
     )
