@@ -1,6 +1,9 @@
 SQLAlchemy developer performance boost demonstration.
 
-Link to demo session:
+Link to the slides:
+ * https://github.com/smartkiwi/pugip-demo/blob/master/Introduction%20into%20SQLAlchemy.pdf
+
+Link to demo session source code in iPython Notebook format:
  * http://nbviewer.ipython.org/urls/raw.github.com/smartkiwi/pugip-demo/master/SQLAlchemyDemo_with_results.ipynb
 
 Links mentioned in the slides:
